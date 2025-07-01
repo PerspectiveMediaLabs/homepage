@@ -58,10 +58,16 @@
       color: #ffffff;
     }
 
+    .subheading {
+      font-size: clamp(1.2rem, 5vw, 2rem);
+      color: #e0e0e0;
+      margin-top: 1.5rem;
+    }
+
     .contact {
       display: inline-block;
       font-size: clamp(1rem, 4vw, 1.5rem);
-      margin-bottom: 2rem;
+      margin: 1rem 0 0.5rem;
       color: #00cccc;
       text-decoration: none;
     }
@@ -69,8 +75,21 @@
       text-decoration: underline;
     }
 
+    .whatsapp {
+      font-size: clamp(1rem, 4vw, 1.5rem);
+      margin-bottom: 2rem;
+      color: #00cccc;
+    }
+    .whatsapp a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .whatsapp a:hover {
+      text-decoration: underline;
+    }
+
     .footer {
-      font-size: clamp(0.6rem, 2.5vw, 0.8rem);
+      font-size: clamp(0.5rem, 2vw, 0.7rem);
       color: #aaaaaa;
     }
   </style>
@@ -80,7 +99,16 @@
     <h1>Perspective Media Labs</h1>
     <p class="tagline">Strategy, Innovation, and a Fresh Perspective for Your Brand.</p>
     <p class="coming-soon">COMING SOON</p>
-    <p><a href="mailto:GetAPerspective@gmail.com" class="contact">GetAPerspective@gmail.com</a></p>
+
+    <p class="subheading">Connect With Us</p>
+
+    <p>
+      <a href="mailto:GetAPerspective@gmail.com" class="contact">GetAPerspective@gmail.com</a>
+    </p>
+    <p class="whatsapp">
+      WhatsApp: <a href="https://wa.me/918668411092" target="_blank">+91-86684 11092</a>
+    </p>
+
     <p class="footer">© 2025 getperspective.in</p>
   </div>
 </body>
