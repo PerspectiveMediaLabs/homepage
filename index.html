@@ -4,6 +4,16 @@
   <meta charset="UTF-8" />
   <title>Perspective Media Labs</title>
 
+  <!-- GTM HEAD CODE -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WX45ZPQQ');
+  </script>
+  <!-- End GTM HEAD CODE -->
+
   <!-- Viewport & mobile meta -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#000000" />
@@ -11,37 +21,23 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
   <style>
-    /* Reset + predictability */
     *, *::before, *::after { box-sizing: border-box; }
     html, body { margin:0; padding:0; background:#000; color:#fff; }
-
-    /* Prevent pull-to-refresh / overscroll flashes */
     html, body { overscroll-behavior: none; }
 
-    /*
-      Viewport height strategy:
-      1) Fallback: 100vh (old browsers)
-      2) Modern: 100dvh / 100svh when supported
-      3) Robust: JS-powered CSS var --vh for iOS Safari quirks
-    */
     :root {
-      --vh: 1vh; /* will be updated by JS */
+      --vh: 1vh;
     }
 
     .canva-wrapper {
       position: fixed;
-      inset: 0; /* top/right/bottom/left:0 */
+      inset: 0;
       width: 100vw;
-
-      /* Layered height fallbacks */
-      height: 100vh;              /* fallback */
-      height: 100svh;             /* modern, accounts for UI overlays */
-      height: 100dvh;             /* dynamic viewport on modern browsers */
-      height: calc(var(--vh) * 100); /* JS correction for iOS */
-
+      height: 100vh;
+      height: 100svh;
+      height: 100dvh;
+      height: calc(var(--vh) * 100);
       background:#000;
-
-      /* Respect iPhone safe areas for gesture bar / notch if needed */
       padding-bottom: env(safe-area-inset-bottom, 0);
       padding-top: env(safe-area-inset-top, 0);
       padding-left: env(safe-area-inset-left, 0);
@@ -52,14 +48,22 @@
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       border: 0; display: block;
-      background:#000; /* prevents white flash while loading */
+      background:#000;
     }
 
-    /* Improve font rendering on mobile (optional) */
-    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
   </style>
 </head>
 <body>
+
+  <!-- GTM BODY CODE -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WX45ZPQQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End GTM BODY CODE -->
+
   <div class="canva-wrapper">
     <iframe
       src="https://www.canva.com/design/DAG1MkOgVb0/dOYm_18HyRwTeCzRkNPqcQ/view?embed"
@@ -67,18 +71,8 @@
     </iframe>
   </div>
 
+  <!-- Viewport height fix for mobile -->
   <script>
-    // iOS/Android address-bar aware vh fix
-    function setVH() {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
-    setVH();
-    window.addEventListener('resize', setVH);
-    window.addEventListener('orientationchange', setVH);
-  </script>
-    <script>
-    // iOS/Android address-bar aware vh fix
     function setVH() {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -88,14 +82,20 @@
     window.addEventListener('orientationchange', setVH);
   </script>
 
-  <!-- 🔵 WhatsApp Chat Widget -->
+  <!-- 🔵 WhatsApp Chat Widget with GTM Events -->
   <script>
     var url = "https://backend.peppercloud.com/js/widget.js?v=" + Date.now();
     var s = document.createElement('script');
     s.type = 'text/javascript';
     s.async = true;
     s.src = url;
-    s.onload = function() {
+    s.onload = function () {
+      // Fire GTM Event when widget loads
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': 'whatsapp_widget_loaded'
+      });
+
       CreateWhatsappChatWidget({
         "enabled": true,
         "chatButtonSetting": {
@@ -124,12 +124,24 @@
           "options": []
         }
       });
+
+      // Attempt to track click on WhatsApp button (delayed lookup)
+      setTimeout(function () {
+        var btn = document.querySelector('.pc-whatsapp-chat-button, .whatsapp-widget-button');
+        if (btn) {
+          btn.addEventListener('click', function () {
+            window.dataLayer.push({
+              'event': 'whatsapp_chat_opened'
+            });
+          });
+        }
+      }, 3000);
     };
+
     var x = document.getElementsByTagName('script')[0];
     x.parentNode.insertBefore(s, x);
   </script>
   <!-- 🔵 End WhatsApp Widget -->
-</body>
-</html>
+
 </body>
 </html>
